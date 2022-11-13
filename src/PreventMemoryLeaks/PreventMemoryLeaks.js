@@ -22,7 +22,7 @@ function PreventMemoryLeaks() {
 			// todo, here you can show a Toast of an error message
 			return err;
 		}
-	});
+	}, [isMounted]);
 
 	useEffect(() => {
 		fetchPost();
