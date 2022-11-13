@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 // With Axios, always use the baseUrl to start with to let browser confirm with the server CORS to allow access
@@ -8,7 +8,8 @@ function PreventMemoryLeaks() {
 	const [post, setPost] = useState({});
 	const [isMounted, setIsMounted] = useState(true);
 
-	const fetchPost = async () => {
+	// useCallback to return memoized function
+	const fetchPost = useCallback(async () => {
 		try {
 			const { data } = await axios.get(`${baseUrl}/todos/1`);
 
@@ -21,14 +22,14 @@ function PreventMemoryLeaks() {
 			// todo, here you can show a Toast of an error message
 			return err;
 		}
-	};
+	});
 
 	useEffect(() => {
 		fetchPost();
 		return () => {
 			setIsMounted(false);
 		};
-	}, []);
+	}, [fetchPost]);
 
 	return (
 		<>
