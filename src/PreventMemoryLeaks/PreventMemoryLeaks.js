@@ -26,6 +26,8 @@ function PreventMemoryLeaks() {
 
 	useEffect(() => {
 		fetchPost();
+
+		// unmount the action to clean up side effects, for performance optimization
 		return () => {
 			setIsMounted(false);
 		};
